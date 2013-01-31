@@ -1,6 +1,6 @@
 # skateboard
 
-Quickly create a pipe from the client to the server
+Quickly create a pipe from the browser to the server with websockets
 
 ## Use
 
@@ -33,9 +33,11 @@ skateboard({
 <body>
 
 <script type="text/javascript">
-  var stream = skateboard();
-  stream.on('data', function(d) {
-    stream.write('data', d);
+  skateboard(function(stream) {
+    // stream is connected
+    stream.on('data', function(d) {
+      stream.write('data', d);
+    });
   });
 </script>
 

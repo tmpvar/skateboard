@@ -47,10 +47,18 @@ util.inherits(Skateboard, Stream);
 
 Skateboard.prototype.write = function(d) {
   try {
-    this.socket.send(d);
+    if (this.socket.write) {
+      this.socket.write(d);
+    } else {
+      this.socket.send(d);
+    }
   } catch (e) {
     this.emit('error', e);
   }
+};
+
+Skateboard.prototype.end = function() {
+  this.emit('end');
 };
 
 module.exports = Skateboard;

@@ -8,7 +8,10 @@ module.exports = function(fn) {
   wshref += '://' + window.location.host;
 
   var socket = new WebSocket(wshref);
-  return new Skateboard(socket);
+  var skateboard = new Skateboard(socket);
+  skateboard.on('connection', function() {
+     fn && fn(skateboard);
+  });
 };
 
 if (typeof window !== 'undefined') {
