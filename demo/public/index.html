@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>skateboard demo</title>
+  <script type="text/javascript" src="skateboard.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+  skateboard(function(socket) {
+
+    socket.on('connection', function() {
+      console.log('connected!')
+    });
+
+    socket.on('data', function(d) {
+      console.log(d);
+    });
+  });
+</script>
+
+</body>
+</html>

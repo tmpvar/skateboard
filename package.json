@@ -1,0 +1,26 @@
+{
+  "name": "skateboard",
+  "version": "0.0.0",
+  "description": "stupid simple websocket stream + static server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmpvar/skateboard.git"
+  },
+  "keywords": [
+    "stream",
+    "streaming",
+    "websocket",
+    "webserver"
+  ],
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "st": "~0.1.2",
+    "ws": "~0.4.25"
+  }
+}
