@@ -30,7 +30,9 @@ module.exports = function(obj, fn) {
       fs.createReadStream(__dirname + '/skateboard.min.js').pipe(res);
 
     } else {
-      !staticHandler(req, res) && obj.requestHandler(req, res);
+      staticHandler(req, res, function() {
+        obj.requestHandler(req, res);
+      });
     }
   });
 
