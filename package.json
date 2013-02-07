@@ -1,6 +1,6 @@
 {
   "name": "skateboard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "stupid simple websocket stream + static server",
   "main": "index.js",
   "scripts": {

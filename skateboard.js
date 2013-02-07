@@ -35,7 +35,6 @@ function Skateboard(socket) {
   });
 
   var handleConnection = function() {
-    socket.send('hello!');
     that.emit('connection');
   };
 
