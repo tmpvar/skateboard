@@ -11,7 +11,7 @@ Quickly create a pipe from the browser to the server with websockets
 
 var skateboard = require('skateboard');
 skateboard({
-  __dirname + '/public',  // default (optional)
+  dir: __dirname + '/public',  // default (optional)
   port : 8080,            // default (optional)
 }, function(stream) {
   var start = Date.now();
