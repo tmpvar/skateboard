@@ -9,7 +9,9 @@ var st = require('st'),
 module.exports = function(obj, fn) {
   if (!fn && typeof obj === 'function') {
     fn = obj;
-    obj = {};
+    obj = {
+      dir : './public'
+    };
   }
 
   var staticHandler = st({
