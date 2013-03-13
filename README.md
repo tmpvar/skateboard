@@ -29,7 +29,7 @@ skateboard({
 <!-- public/index.html -->
 <html>
 <head>
-  <script type="text/javascript" src="skateboard.js"></script>
+  <script type="text/javascript" src="skateboard.min.js"></script>
 </head>
 <body>
 
