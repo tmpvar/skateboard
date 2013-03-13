@@ -37,7 +37,7 @@ skateboard({
   skateboard(function(stream) {
     // stream is connected
     stream.on('data', function(d) {
-      stream.write('data', d);
+      stream.emit('data', d);
     });
   });
 </script>
