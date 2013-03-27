@@ -17,6 +17,7 @@ module.exports = function(obj, fn) {
   var staticHandler = st({
     path: obj.dir,
     url: '/',
+    cache: false,
     index: obj.index || 'index.html',
     passthrough: !!obj.requestHandler
   });
