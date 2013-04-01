@@ -8,8 +8,27 @@ module.exports = function(fn) {
   wshref += '://' + window.location.host + '/skateboard';
 
   var socket = new WebSocket(wshref);
-  var skateboard = new Skateboard(socket);
-  skateboard.on('connection', function() {
+  var skateboard = new Skateboard(socket, true);
+
+  socket.onclose = function() {
+    var timer = setTimeout(function retry() {
+      var tmp = new WebSocket(wshref);
+      tmp.onopen = function() {
+        clearTimeout(timer);
+        skateboard.socket = tmp;
+        skateboard.setupBindings();
+      };
+
+      tmp.onerror = function() {
+        clearTimeout(timer);
+        timer = setTimeout(retry, 250)
+      };
+
+      timer = setTimeout(retry, 250);
+    }, 250);
+  }
+
+  skateboard.once('connection', function() {
      fn && fn(skateboard);
   });
 };
