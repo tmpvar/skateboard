@@ -25,7 +25,8 @@ module.exports = function(obj, fn) {
   obj.requestHandler = obj.requestHandler || function() {};
 
   var httpServer = http.createServer(function(req, res) {
-    if (req.url.indexOf('skateboard.min.js') > -1) {
+    var url = req.url;
+    if (url.indexOf('skateboard.min.js') > -1) {
       res.writeHead(200, {
         'Content-type' : 'text/javascript'
       });
@@ -34,6 +35,7 @@ module.exports = function(obj, fn) {
 
     } else {
       staticHandler(req, res, function() {
+        req.url = url;
         obj.requestHandler(req, res);
       });
     }
