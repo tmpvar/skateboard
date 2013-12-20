@@ -9,28 +9,33 @@ module.exports = function(fn) {
 
   var socket = new WebSocket(wshref);
   var skateboard = new Skateboard(socket, true);
+  var timer;
+  
+  var handleReconnect = function() {
+    clearTimeout(timer);
+    var tmp = new WebSocket(wshref);
+    tmp.onopen = function() {
+      clearTimeout(timer);
+      skateboard.socket = tmp;
+      skateboard.socket.onclose = handleReconnect;
+      skateboard.socket.onerror = handleReconnect;
+      skateboard.setupBindings();
+    };
 
-  socket.onclose = function() {
-    var timer = setTimeout(function retry() {
-      var tmp = new WebSocket(wshref);
-      tmp.onopen = function() {
-        clearTimeout(timer);
-        skateboard.socket = tmp;
-        skateboard.setupBindings();
-      };
+    tmp.onclose = tmp.onerror = function() {
+      clearTimeout(timer);
+      timer = setTimeout(handleReconnect, 250);
+    };
+  };
 
-      tmp.onerror = function() {
-        clearTimeout(timer);
-        timer = setTimeout(retry, 250)
-      };
-
-      timer = setTimeout(retry, 250);
-    }, 250);
-  }
+  socket.onclose = handleReconnect;
+  socket.onerror = handleReconnect
 
   skateboard.once('connection', function() {
      fn && fn(skateboard);
   });
+
+  return skateboard;
 };
 
 if (typeof window !== 'undefined') {

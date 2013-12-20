@@ -6,12 +6,8 @@
 <body>
 
 <script type="text/javascript">
-  skateboard(function(socket) {
-    console.log('connected!')
-
-    socket.on('data', function(d) {
-      console.log(d);
-    });
+  skateboard().on('data', function(d) {
+    this.write(d);
   });
 </script>
 

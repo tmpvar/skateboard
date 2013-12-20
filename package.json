@@ -1,6 +1,6 @@
 {
   "name": "skateboard",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "stupid simple websocket stream + static server",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "st": "~0.1.2",
-    "ws": "~0.4.25"
+    "ws": "~0.4.25",
+    "reconnect-core": "0.0.1"
   }
 }

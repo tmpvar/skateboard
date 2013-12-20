@@ -8,11 +8,11 @@ Quickly create a pipe from the browser to the server with websockets
 
 
 ```javascript
-
+// server.js
 var skateboard = require('skateboard');
 skateboard({
   dir: __dirname + '/public',  // default (optional)
-  port : 8080            // default (optional)
+  port : 8080                  // default (optional)
   // requestHandler: function(req, res) {} -- fallback request handler
 }, function(stream) {
   var start = Date.now();
@@ -34,12 +34,15 @@ skateboard({
 <body>
 
 <script type="text/javascript">
-  skateboard(function(stream) {
-    // stream is connected
-    stream.on('data', function(d) {
-      stream.emit('data', d);
-    });
+  skateboard().on('data', function(d) {
+    this.write(d);
   });
+
+  // or
+  // skateboard(function(stream) {
+  //   stream.write(d);
+  // })
+  // 
 </script>
 
 </body>
