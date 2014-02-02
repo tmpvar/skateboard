@@ -40,8 +40,10 @@ skateboard({
 
   // or
   // skateboard(function(stream) {
-  //   stream.write(d);
-  // })
+  //   stream.on('data', function(d) {
+  //     stream.write(d);
+  //   });
+  // });
   // 
 </script>
 
