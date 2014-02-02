@@ -6,8 +6,13 @@
 <body>
 
 <script type="text/javascript">
-  skateboard().on('data', function(d) {
-    this.write(d);
+  skateboard(function(stream) {
+    console.log('connected!');
+
+    stream.pipe(stream);
+    stream.on('data', function(d) {
+      console.log('received:', d);
+    })
   });
 </script>
 

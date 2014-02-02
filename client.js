@@ -1,16 +1,23 @@
 var Skateboard = require('./skateboard');
 
-module.exports = function(fn) {
+module.exports = function(wshref, fn) {
 
-  // calculate the websocket addr
-  var wshref = ''
-  wshref = (window.location.protocol === 'https') ? 'wss' : 'ws';
-  wshref += '://' + window.location.host + '/skateboard';
+  if (typeof fn === 'undefined') {
+    if (typeof wshref === 'function') {
+      fn = wshref
+    }
+    // calculate the websocket addr
+    wshref = ''
+    wshref = window.location.protocol;
+    wshref += '://' + window.location.host + '/skateboard';
+  }
+
+  wshref = wshref.replace(/http(s?):/, 'ws$1:')
 
   var socket = new WebSocket(wshref);
   var skateboard = new Skateboard(socket, true);
   var timer;
-  
+
   var handleReconnect = function() {
     clearTimeout(timer);
     var tmp = new WebSocket(wshref);

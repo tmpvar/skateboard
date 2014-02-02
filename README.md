@@ -25,6 +25,11 @@ skateboard({
 
 ```
 
+`skateboard([wshref [, fn]])`
+
+`wshref` - optional cross domain skateboard to connect to
+`fn` - optional connection handler. first argument is a `stream`
+
 ```html
 <!-- public/index.html -->
 <html>
@@ -44,7 +49,7 @@ skateboard({
   //     stream.write(d);
   //   });
   // });
-  // 
+  //
 </script>
 
 </body>
