@@ -1,11 +1,11 @@
 {
   "name": "skateboard",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "stupid simple websocket stream + static server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "minify" : "browserify -e client.js | uglifyjs > skateboard.min.js"
+    "minify": "browserify -e client.js | uglifyjs > skateboard.min.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "st": "~0.1.2",
-    "ws": "~0.4.25",
+    "ws": "~0.4.31",
     "reconnect-core": "0.0.1"
   }
 }

@@ -2,9 +2,9 @@ var st = require('st'),
     ws = require('ws'),
     http = require('http'),
     fs = require('fs'),
-    Skateboard = require('./skateboard');
-
-
+    Skateboard = require('./skateboard'),
+    qs = require('querystring'),
+    url = require('url');
 
 module.exports = function(obj, fn) {
   if (!fn && typeof obj === 'function') {
@@ -25,8 +25,7 @@ module.exports = function(obj, fn) {
   obj.requestHandler = obj.requestHandler || function() {};
 
   var httpServer = http.createServer(function(req, res) {
-    var url = req.url;
-    if (url.indexOf('skateboard.min.js') > -1) {
+    if (req.url.indexOf('skateboard.min.js') > -1) {
       res.writeHead(200, {
         'Content-type' : 'text/javascript'
       });
@@ -35,7 +34,6 @@ module.exports = function(obj, fn) {
 
     } else {
       staticHandler(req, res, function() {
-        req.url = url;
         obj.requestHandler(req, res);
       });
     }
@@ -43,7 +41,15 @@ module.exports = function(obj, fn) {
 
   var websocketServer = new ws.Server({ server: httpServer });
   websocketServer.on('connection', function(socket) {
-    fn(new Skateboard(socket));
+
+    var urlParts = {};
+    try {
+      urlParts = url.parse(socket.upgradeReq.url, true);
+    } catch(e) {}
+
+    var params = {};
+
+    fn(new Skateboard(socket), urlParts.query || {});
   });
 
   httpServer.listen(obj.port || 8080);

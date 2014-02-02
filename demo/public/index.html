@@ -6,8 +6,7 @@
 <body>
 
 <script type="text/javascript">
-  skateboard(function(stream) {
-    console.log('connected!');
+  skateboard('http://localhost:8080/skateboard?param=true', function(stream) {
 
     stream.pipe(stream);
     stream.on('data', function(d) {

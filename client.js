@@ -15,6 +15,7 @@ module.exports = function(wshref, fn) {
   wshref = wshref.replace(/http(s?):/, 'ws$1:')
 
   var socket = new WebSocket(wshref);
+  socket.binaryType = "arraybuffer";
   var skateboard = new Skateboard(socket, true);
   var timer;
 
@@ -24,6 +25,7 @@ module.exports = function(wshref, fn) {
     tmp.onopen = function() {
       clearTimeout(timer);
       skateboard.socket = tmp;
+      skateboard.socket.binaryType = "arraybuffer";
       skateboard.socket.onclose = handleReconnect;
       skateboard.socket.onerror = handleReconnect;
       skateboard.setupBindings();
@@ -36,7 +38,7 @@ module.exports = function(wshref, fn) {
   };
 
   socket.onclose = handleReconnect;
-  socket.onerror = handleReconnect
+  socket.onerror = handleReconnect;
 
   skateboard.once('connection', function() {
      fn && fn(skateboard);
