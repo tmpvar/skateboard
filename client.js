@@ -5,11 +5,12 @@ module.exports = function(wshref, fn) {
   if (typeof fn === 'undefined') {
     if (typeof wshref === 'function') {
       fn = wshref
+
+      // calculate the websocket addr
+      wshref = ''
+      wshref = window.location.protocol;
+      wshref += '://' + window.location.host + '/skateboard';
     }
-    // calculate the websocket addr
-    wshref = ''
-    wshref = window.location.protocol;
-    wshref += '://' + window.location.host + '/skateboard';
   }
 
   wshref = wshref.replace(/http(s?):/, 'ws$1:')
