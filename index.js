@@ -9,13 +9,11 @@ var st = require('st'),
 module.exports = function(obj, fn) {
   if (!fn && typeof obj === 'function') {
     fn = obj;
-    obj = {
-      dir : './public'
-    };
+    obj = {};
   }
 
   var staticHandler = st({
-    path: obj.dir,
+    path: obj.dir || './public',
     url: '/',
     cache: false,
     index: obj.index || 'index.html',
