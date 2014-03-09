@@ -3,6 +3,7 @@
   "version": "0.2.5",
   "description": "stupid simple websocket stream + static server",
   "main": "index.js",
+  "browser":  "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "minify": "browserify -e client.js | uglifyjs > skateboard.min.js"
