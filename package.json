@@ -1,9 +1,9 @@
 {
   "name": "skateboard",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "stupid simple websocket stream + static server",
   "main": "index.js",
-  "browser":  "client.js",
+  "browser": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "minify": "browserify -e client.js | uglifyjs > skateboard.min.js"
@@ -22,8 +22,8 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "st": "~0.1.2",
-    "ws": "~0.4.31",
+    "st": "^0.3.2",
+    "ws": "^0.4.31",
     "reconnect-core": "0.0.1"
   }
 }

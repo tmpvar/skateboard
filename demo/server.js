@@ -7,8 +7,11 @@ require('../')({ dir: __dirname + '/public'}, function(stream, params) {
   stream.write('ping');
 
   stream.on('data', function(d) {
-    //console.log('latency:', (Date.now() - start) + 'ms');
-    start = Date.now();
-    stream.write(new Buffer([0xBE, 0xEF]));
+    console.log('latency:', (Date.now() - start) + 'ms');
+    setTimeout(function() {
+      start = Date.now();
+      
+      stream.write(new Buffer([0xBE, 0xEF]));
+  }, 100);
   });
 });

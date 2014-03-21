@@ -4,7 +4,8 @@ var st = require('st'),
     fs = require('fs'),
     Skateboard = require('./skateboard'),
     qs = require('querystring'),
-    url = require('url');
+    url = require('url'),
+    skateboardSrc = fs.readFileSync(__dirname + '/skateboard.min.js').toString();
 
 module.exports = function(obj, fn) {
   if (!fn && typeof obj === 'function') {
@@ -14,8 +15,8 @@ module.exports = function(obj, fn) {
 
   var staticHandler = st({
     path: obj.dir || './public',
-    url: '/',
-    cache: false,
+    url: obj.url || '/',
+    cache: obj.cache || false,
     index: obj.index || 'index.html',
     passthrough: !!obj.requestHandler
   });
@@ -28,7 +29,7 @@ module.exports = function(obj, fn) {
         'Content-type' : 'text/javascript'
       });
 
-      fs.createReadStream(__dirname + '/skateboard.min.js').pipe(res);
+      res.end(skateboardSrc);
 
     } else {
       staticHandler(req, res, function() {
