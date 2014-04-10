@@ -13,7 +13,7 @@ module.exports = function(wshref, fn) {
     }
   }
 
-  wshref = wshref.replace(/http(s?):/, 'ws$1:')
+  wshref = wshref.replace(/http(s?):/, 'ws$1:').replace(/:+/g, ':');
 
   var socket = new WebSocket(wshref);
   socket.binaryType = "arraybuffer";
