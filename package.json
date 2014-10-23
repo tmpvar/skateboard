@@ -22,8 +22,8 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "st": "^0.3.2",
+    "st": "^0.5.2",
     "ws": "^0.4.31",
-    "reconnect-core": "0.0.1"
+    "reconnect-core": "^0.2.1"
   }
 }
