@@ -32,6 +32,7 @@ module.exports = function(wshref, fn) {
       skateboard.socket.onclose = handleReconnect;
       skateboard.socket.onerror = handleReconnect;
       skateboard.setupBindings();
+      skateboard.emit('reconnect');
     };
 
     tmp.onclose = tmp.onerror = function() {
