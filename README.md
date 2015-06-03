@@ -25,10 +25,10 @@ skateboard({
 
 ```
 
-`skateboard([wshref [, fn]])`
+skateboard([`wshref` [, `fn`]])
 
-`wshref` - optional cross domain skateboard to connect to
-`fn` - optional connection handler. first argument is a `stream`
+* `wshref` - optional cross domain skateboard to connect to
+* `fn` - optional connection handler. first argument is a duplex `stream`
 
 ```html
 <!-- public/index.html -->
