@@ -4,6 +4,7 @@ var Stream = require('stream').Stream;
 function Skateboard(socket, reconnect) {
   Stream.apply(this, arguments);
 
+  this.reconnect = reconnect;
   this.socket = socket;
   this.readable = true;
   this.writable = true;
@@ -34,6 +35,11 @@ function Skateboard(socket, reconnect) {
       on('close', function() {
         that.emit('end');
       });
+    }
+
+    this.close = function() {
+      that.reconnect = false;
+      that.socket.close();
     }
 
     on('error', function(err) {

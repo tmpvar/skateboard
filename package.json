@@ -25,5 +25,9 @@
     "st": "^0.5.2",
     "ws": "^0.4.31",
     "reconnect-core": "^0.2.1"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.0",
+    "uglifyjs": "^2.4.10"
   }
 }

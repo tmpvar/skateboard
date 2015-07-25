@@ -35,14 +35,21 @@ module.exports = function(wshref, fn) {
       skateboard.emit('reconnect');
     };
 
-    tmp.onclose = tmp.onerror = function() {
-      clearTimeout(timer);
-      timer = setTimeout(handleReconnect, 250);
-    };
+    setupSocket(tmp)
   };
 
-  socket.onclose = handleReconnect;
-  socket.onerror = handleReconnect;
+  function reconnectionTimer() {
+    clearTimeout(timer);
+    if (skateboard.reconnect) {
+      timer = setTimeout(handleReconnect, 250);
+    }
+  }
+
+  function setupSocket(sock) {
+    sock.onclose = sock.onerror = reconnectionTimer;
+  }
+
+  setupSocket(socket)
 
   skateboard.once('connection', function() {
      fn && fn(skateboard);
