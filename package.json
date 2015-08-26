@@ -22,12 +22,12 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "st": "^0.5.2",
-    "ws": "^0.4.31",
-    "reconnect-core": "^0.2.1"
+    "reconnect-core": "^1.0.1",
+    "st": "^0.5.5",
+    "ws": "^0.8.0"
   },
   "devDependencies": {
-    "browserify": "^11.0.0",
+    "browserify": "^11.0.1",
     "uglifyjs": "^2.4.10"
   }
 }
