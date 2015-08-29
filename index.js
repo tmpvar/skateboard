@@ -13,7 +13,7 @@ module.exports = function(obj, fn) {
     obj = {};
   }
 
-  var staticHandler = st({
+  var staticHandler = obj.staticHandler || st({
     path: obj.dir || './public',
     url: obj.url || '/',
     cache: obj.cache || false,
