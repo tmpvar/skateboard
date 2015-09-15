@@ -38,6 +38,9 @@ module.exports = function(obj, fn) {
     }
   });
 
+  httpServer.on('listening',obj.listening||function(){})
+  httpServer.on('error',obj.error||function(){})
+
   var websocketServer = new ws.Server({ server: httpServer });
   websocketServer.on('connection', function(socket) {
 
