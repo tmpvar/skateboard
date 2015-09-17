@@ -54,5 +54,5 @@ module.exports = function(obj, fn) {
     fn(new Skateboard(socket), urlParts.query || {});
   });
 
-  httpServer.listen(obj.port || 8080);
+  httpServer.listen(obj.port || 8080, obj.interface);
 };
