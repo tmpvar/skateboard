@@ -12,6 +12,17 @@
     stream.on('data', function(d) {
       console.log(d);
     })
+
+    stream.on('disconnection', function() {
+      console.log('disconnected')
+    })
+
+    stream.on('reconnection', function() {
+      console.log('reconnected')
+    })
+
+  }).on('connection', function() {
+    console.log('connected')
   });
 </script>
 

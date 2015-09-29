@@ -48,7 +48,7 @@ function Skateboard(socket, reconnect) {
       }
     });
 
-    var handleConnection = function() {
+    function handleConnection() {
       that.emit('connection');
     };
 

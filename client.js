@@ -22,23 +22,29 @@ module.exports = function(wshref, fn) {
   var skateboard = new Skateboard(socket, true);
   var timer;
 
-  var handleReconnect = function() {
+  function handleReconnect() {
     clearTimeout(timer);
     var tmp = new WebSocket(wshref);
     tmp.onopen = function() {
       clearTimeout(timer);
+      skateboard.connected = true;
       skateboard.socket = tmp;
       skateboard.socket.binaryType = "arraybuffer";
       skateboard.socket.onclose = handleReconnect;
       skateboard.socket.onerror = handleReconnect;
       skateboard.setupBindings();
-      skateboard.emit('reconnect');
+      skateboard.emit('reconnection');
     };
 
     setupSocket(tmp)
   };
 
   function reconnectionTimer() {
+    if (skateboard.connected) {
+      skateboard.emit('disconnection')
+      skateboard.connected = false;
+    }
+
     clearTimeout(timer);
     if (skateboard.reconnect) {
       timer = setTimeout(handleReconnect, 250);
@@ -52,6 +58,7 @@ module.exports = function(wshref, fn) {
   setupSocket(socket)
 
   skateboard.once('connection', function() {
+     skateboard.connected = true;
      fn && fn(skateboard);
   });
 

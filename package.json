@@ -23,7 +23,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "reconnect-core": "^1.0.1",
-    "st": "^0.5.5",
+    "st": "^1.0.0",
     "ws": "^0.8.0"
   },
   "devDependencies": {
