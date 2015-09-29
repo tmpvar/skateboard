@@ -57,6 +57,12 @@ skateboard([`wshref` [, `fn`]])
 
 ```
 
+### client events
+
+* `connection` - emitted on the first connection
+* `disconnection` - emitted whenever the connection disconnects
+* `reconnection` - emitted whenever a new connection is established
+
 ## License
 
 MIT
