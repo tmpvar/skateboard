@@ -22,9 +22,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "reconnect-core": "^1.0.1",
+    "reconnect-core": "^1.1.0",
     "st": "^1.0.0",
-    "ws": "^0.8.0"
+    "ws": "^0.8.1"
   },
   "devDependencies": {
     "browserify": "^11.0.1",
