@@ -55,4 +55,5 @@ module.exports = function(obj, fn) {
   });
 
   httpServer.listen(obj.port || 8080, obj.interface);
+  return httpServer;
 };
