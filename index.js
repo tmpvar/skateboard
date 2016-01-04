@@ -1,11 +1,12 @@
-var st = require('st'),
-    ws = require('ws'),
-    http = require('http'),
-    fs = require('fs'),
-    Skateboard = require('./skateboard'),
-    qs = require('querystring'),
-    url = require('url'),
-    skateboardSrc = fs.readFileSync(__dirname + '/skateboard.min.js').toString();
+var st = require('st');
+var createEngine = require('engine.io');
+var http = require('http');
+var fs = require('fs');
+var Skateboard = require('./skateboard');
+var qs = require('querystring');
+var url = require('url');
+
+var skateboardSrc = fs.readFileSync(__dirname + '/skateboard.min.js').toString();
 
 module.exports = function(obj, fn) {
   if (!fn && typeof obj === 'function') {
@@ -38,15 +39,24 @@ module.exports = function(obj, fn) {
     }
   });
 
-  obj.listening && httpServer.on('listening', obj.listening);
-  obj.error && httpServer.on('error', obj.error);
+  if (typeof obj.listening === 'function') {
+    httpServer.on('listening', obj.listening);
+  }
 
-  var websocketServer = new ws.Server({ server: httpServer });
-  websocketServer.on('connection', function(socket) {
+  if (typeof obj.error === 'function') {
+    httpServer.on('error', obj.error);
+  }
 
+  var engineOptions = {}
+
+  if (obj.transports) {
+    engineOptions.transports = obj.transports;
+  }
+
+  createEngine(httpServer, engineOptions).on('connection', function(socket) {
     var urlParts = {};
     try {
-      urlParts = url.parse(socket.upgradeReq.url, true);
+      urlParts = url.parse(socket.request.url, true);
     } catch(e) {}
 
     var params = {};

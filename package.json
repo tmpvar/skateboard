@@ -1,7 +1,7 @@
 {
   "name": "skateboard",
   "version": "1.4.1",
-  "description": "stupid simple websocket stream + static server",
+  "description": "stupid simple engine.io stream + static server",
   "main": "index.js",
   "browser": "client.js",
   "scripts": {
@@ -22,9 +22,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "reconnect-core": "^1.1.0",
-    "st": "^1.0.0",
-    "ws": "^0.8.1"
+    "engine.io": "^1.6.4",
+    "engine.io-client": "^1.6.4",
+    "st": "^1.1.0"
   },
   "devDependencies": {
     "browserify": "^11.0.1",

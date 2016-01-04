@@ -1,47 +1,38 @@
 var Skateboard = require('./skateboard');
+var Socket = require('engine.io-client');
 
-module.exports = function(wshref, fn) {
+module.exports = function(url, fn) {
 
   if (typeof fn === 'undefined') {
-    if (typeof wshref === 'function') {
-      fn = wshref
-      wshref = null;
+    if (typeof url === 'function') {
+      fn = url;
+      url = null;
     }
   }
 
-  if (!wshref) {
-    // calculate the websocket addr
-    wshref = window.location.protocol;
-    wshref += '://' + window.location.host + '/skateboard';
-  }
-
-  wshref = wshref.replace(/http(s?):/, 'ws$1:').replace(/:+/g, ':');
-
-  var socket = new WebSocket(wshref);
-  socket.binaryType = "arraybuffer";
+  var socket = new Socket(url);
   var skateboard = new Skateboard(socket, true);
   var timer;
 
   function handleReconnect() {
-    clearTimeout(timer);
-    var tmp = new WebSocket(wshref);
-    tmp.onopen = function() {
-      clearTimeout(timer);
-      skateboard.connected = true;
-      skateboard.socket = tmp;
-      skateboard.socket.binaryType = "arraybuffer";
-      skateboard.socket.onclose = handleReconnect;
-      skateboard.socket.onerror = handleReconnect;
-      skateboard.setupBindings();
-      skateboard.emit('reconnection');
-    };
+    skateboard.socket.removeAllListeners();
 
-    setupSocket(tmp)
-  };
+    clearTimeout(timer);
+
+    skateboard.socket = new Socket(url);
+    skateboard.socket.on('open', function() {
+      skateboard.connected = true;
+      clearTimeout(timer);
+      skateboard.emit('reconnection');
+    });
+
+    skateboard.setupBindings();
+    setupSocket();
+  }
 
   function reconnectionTimer() {
     if (skateboard.connected) {
-      skateboard.emit('disconnection')
+      skateboard.emit('disconnection');
       skateboard.connected = false;
     }
 
@@ -51,15 +42,18 @@ module.exports = function(wshref, fn) {
     }
   }
 
-  function setupSocket(sock) {
-    sock.onclose = sock.onerror = reconnectionTimer;
+  function setupSocket() {
+    skateboard.socket.on('close', reconnectionTimer);
+    skateboard.socket.on('error', reconnectionTimer);
   }
 
-  setupSocket(socket)
+  setupSocket();
 
   skateboard.once('connection', function() {
-     skateboard.connected = true;
-     fn && fn(skateboard);
+    skateboard.connected = true;
+    if (typeof fn === 'function') {
+      fn(skateboard);
+    }
   });
 
   return skateboard;

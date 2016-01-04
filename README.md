@@ -1,6 +1,6 @@
 # skateboard
 
-Quickly create a pipe from the browser to the server with websockets
+Quickly create a stream from the browser to the server with engine.io
 
 ## Use
 
@@ -11,8 +11,9 @@ Quickly create a pipe from the browser to the server with websockets
 // server.js
 var skateboard = require('skateboard');
 skateboard({
-  dir: __dirname + '/public',  // default (optional)
-  port : 8080                  // default (optional)
+  dir: __dirname + '/public',          // default (optional)
+  port : 8080,                         // default (optional)
+  transports: ['polling', 'websocket'] // default (optional)
   // requestHandler: function(req, res) {} -- fallback request handler
 }, function(stream) {
   var start = Date.now();

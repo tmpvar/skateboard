@@ -1,5 +1,5 @@
 var Stream = require('stream').Stream;
-    util = require('util')
+var util = require('util');
 
 function Skateboard(socket, reconnect) {
   Stream.apply(this, arguments);
@@ -11,16 +11,11 @@ function Skateboard(socket, reconnect) {
 
   var that = this;
 
-  var on = function(name, fn) {
-    if (this.socket.on) {
-      this.socket.on(name, fn);
-    } else {
-      this.socket['on' + name] = fn;
-    }
-  }.bind(this);
+  function on(name, fn) {
+    that.socket.on(name, fn);
+  }
 
   this.setupBindings = function() {
-
     on('message', function(message) {
       if (message && (message.data || message.srcElement) && message instanceof MessageEvent) {
         message = message.data;
@@ -33,27 +28,24 @@ function Skateboard(socket, reconnect) {
 
     if (!reconnect) {
       on('close', function() {
-        that.emit('end');
+        that.emit('end')
       });
     }
 
-    this.close = function() {
+    this.close = function forceClose() {
       that.reconnect = false;
       that.socket.close();
-    }
+    };
 
     on('error', function(err) {
-      if (typeof Event !== 'undefined' && !(err instanceof Event)) {
+      if (err && err.type === 'TransportError') {
+        that.emit('transport-error', err);
+      } else {
         that.emit('error', err);
       }
     });
 
-    function handleConnection() {
-      that.emit('connection');
-    };
-
-    on('open', handleConnection);
-    on('connection', handleConnection);
+    on('open', this.emit.bind(this, 'connection'));
   };
 
   this.setupBindings();
@@ -62,15 +54,7 @@ function Skateboard(socket, reconnect) {
 util.inherits(Skateboard, Stream);
 
 Skateboard.prototype.write = function(d) {
-  try {
-    if (this.socket.write) {
-      this.socket.write(d);
-    } else {
-      this.socket.send(d);
-    }
-  } catch (e) {
-    return false;
-  }
+  this.socket.send(d);
 };
 
 Skateboard.prototype.end = function() {
