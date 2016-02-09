@@ -64,6 +64,11 @@ module.exports = function(obj, fn) {
     fn(new Skateboard(socket), urlParts.query || {});
   });
 
-  httpServer.listen(obj.port || 8080, obj.interface);
+  var port = 8080;
+  if (typeof obj.port !== 'undefined') {
+    port = obj.port;
+  }
+
+  httpServer.listen(port, obj.interface);
   return httpServer;
 };
