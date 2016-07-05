@@ -22,8 +22,8 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "engine.io": "^1.6.4",
-    "engine.io-client": "^1.6.4",
+    "engine.io": "git+https://github.com/tmpvar/engine.io#ws-1.1.1",
+    "engine.io-client": "git+https://github.com/tmpvar/engine.io-client#ws-1.1.1",
     "st": "^1.1.0"
   },
   "devDependencies": {
