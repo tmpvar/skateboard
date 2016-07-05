@@ -23,7 +23,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "engine.io": "git+https://github.com/tmpvar/engine.io#ws-1.1.1",
-    "engine.io-client": "git+https://github.com/tmpvar/engine.io-client#ws-1.1.1",
+    "engine.io-client": "^1.6.11",
     "st": "^1.1.0"
   },
   "devDependencies": {
