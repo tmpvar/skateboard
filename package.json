@@ -1,6 +1,6 @@
 {
   "name": "skateboard",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "stupid simple engine.io stream + static server",
   "main": "index.js",
   "browser": "client.js",
