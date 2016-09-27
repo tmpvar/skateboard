@@ -28,7 +28,9 @@ function Skateboard(socket, reconnect) {
 
     if (!reconnect) {
       on('close', function() {
-        that.emit('end')
+        setImmediate(function () {
+          that.emit('end')
+        })
       });
     }
 
