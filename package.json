@@ -22,12 +22,12 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "engine.io": "git+https://github.com/tmpvar/engine.io#ws-1.1.1",
-    "engine.io-client": "^1.6.11",
+    "engine.io": "^2.1.0",
+    "engine.io-client": "^2.1.0",
     "st": "^1.1.0"
   },
   "devDependencies": {
-    "browserify": "^11.0.1",
+    "browserify": "^14.1.0",
     "uglifyjs": "^2.4.10"
   }
 }
