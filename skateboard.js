@@ -17,7 +17,11 @@ function Skateboard(socket, reconnect) {
 
   this.setupBindings = function() {
     on('message', function(message) {
-      if (message && (message.data || message.srcElement) && message instanceof MessageEvent) {
+      if (!message) {
+        return
+      }
+
+      if ((message.data || message.srcElement) && message instanceof MessageEvent) {
         message = message.data;
       } else if (typeof message.initMessageEvent === 'function') {
         message = message.data;
